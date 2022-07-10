@@ -14,20 +14,17 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "12.x"
-      - run: npm ci
+      - run: npm CI
       - run: npm run format:check
       - run: npm test -- --coverage
         env:
           CI: true
-
-      - name: Build Project
-        if: github.event_name == 'push'
-        run: npm run build
-      -run: npm install -g surge
-
+      - name: Build Projects
+      - if: github.event_name == 'push'
+      - run: npm run build
       - name: Deploy to Staging
         if: github.event_name == 'push'
-        run: npx surge --project ./build --domain staking-song.surge.sh
+        run: npx surge --project ./build --domain taking-song.surge.sh/
         env:
           SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
           SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
