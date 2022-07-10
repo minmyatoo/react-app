@@ -40,8 +40,7 @@ jobs:
         with:
           name: build
           path: build
-      - uses: actions/download-artifact
-
+      - uses: actions/download-artifact@v3
       - name: Deploy to Staging
         if: github.event_name == 'push'
         run: npx surge --project ./build --domain staking-song.surge.sh
